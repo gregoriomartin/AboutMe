@@ -1,0 +1,27 @@
+﻿@model HelpSite.Models.FavoriteTitlesViewModel
+@{
+    ViewData["Title"] = "My Favorite Titles";
+}
+<div class="text-center">
+    <h1>My Favorite Titles</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Games</h4>
+            @await Html.PartialAsync("_FavoriteGames", Model.Games)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Movies</h4>
+            @await Html.PartialAsync("_FavoriteMovies", Model.Movies)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Music Bands</h4>
+            @await Html.PartialAsync("_FavoriteMusicBands", Model.MusicBands)
+        </div>
+    </div>
+</div>
+
+

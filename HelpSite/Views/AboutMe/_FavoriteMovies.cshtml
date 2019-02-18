@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HelpSite.Entities.Movie>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Length
+            </th>
+            <th>
+                Genres
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @{
+                        var length = TimeSpan.FromMinutes(item.Length);
+                        var lenghtFormatted = $"{length.Hours}hs {length.Minutes % 60}min";
+                    }
+                    @lenghtFormatted
+                </td>
+                <td>
+                    @string.Join(", ", item.Genres)
+                </td>
+            </tr>
+                        }
+    </tbody>
+</table>

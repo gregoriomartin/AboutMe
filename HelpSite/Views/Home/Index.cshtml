@@ -1,0 +1,15 @@
+﻿@model HelpSite.Models.MySelfViewModel
+@{
+    ViewData["Title"] = $"Know more about {Model.MyName}";
+    var today = DateTime.Today;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>
+        @Model.AboutMe
+    </p>
+    <p>
+        Today is @today.ToShortDateString()
+    </p>
+</div>
