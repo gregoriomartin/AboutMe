@@ -1,0 +1,32 @@
+﻿@model GameCore.GameModels.ScoreViewModel
+@{
+    ViewData["Title"] = "Your Score | Know more about me game";
+}
+
+
+<h3>
+    Your score is <span>@Model.Score</span>!
+    <br />
+    Congratulations, you are able to be the Team Leader of
+</h3>
+
+@await Html.PartialAsync("_QuestionText")
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-controller="Game" asp-action="AnswerChooseOne" method="post">
+            <div class="form-group">
+                <input type="text" asp-for="Answer" class="form-control" />
+            </div>
+            <hr />
+
+            <div class="form-group">
+                <input type="submit" value="Save the message!" id="btnSubmit" class="btn-primary btn" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

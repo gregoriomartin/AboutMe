@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GameCore.GameModels
 {
-    public class BaseQuestionViewModel
+    public class BaseQuestionViewModel 
     {
         public string Question { get; set; }
+        [Display(Name = "Answer")]
+        [Required]
         public string Answer { get; set; }
     }
 }

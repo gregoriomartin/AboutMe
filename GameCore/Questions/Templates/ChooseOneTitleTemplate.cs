@@ -17,7 +17,7 @@ namespace GameCore.Questions.Templates
         {
             $"If ${QuestionTemplate.GameMasterName} would be alone on an island, with a computer and could enjoy a single title until the battery runs out, which one would he choose?",
             "If someone paid me to enjoy a title all day, what do you think I would choose?",
-            $"A friend comes running to me: '${QuestionTemplate.GameMasterName}, ${QuestionTemplate.GameMasterName}! I need help! Some kind of intergalactic monster kidnapping my father and only returns him if I choose one title in the world and describe it perfectly'. Which would be the most appropriate? (Thinking of saving his father obviously;) )"
+            $"A friend comes running to me: '{QuestionTemplate.GameMasterName}, {QuestionTemplate.GameMasterName}! I need help! Some kind of intergalactic monster kidnapping my father and only returns him if I choose one title in the world and describe it perfectly'. Which would be the most appropriate? (Thinking of saving his father obviously;) )"
         });
 
         public override Question Accept(IQuestionGenerator questionGenerator)

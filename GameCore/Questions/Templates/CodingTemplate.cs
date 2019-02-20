@@ -8,97 +8,96 @@ namespace GameCore.Questions.Templates
     {
         public static readonly IList<QuizAndAnswer<string, string>> Questions = new ReadOnlyCollection<QuizAndAnswer<string, string>>(new[]
             {
-                new QuizAndAnswer<string, string> { Quiz =  "What will be the output of the following code Snippet?\n" +
+                new QuizAndAnswer<string, string> { Quiz =  "What will be the output of the following C# code Snippet?\n" +
                     "using System;\n"+
                           "public class Program\n"+
-                          "        {\n"+
-                          "            public static void Main(string[] args)\n"+
-                          "            {\n"+
-                          "                Console.WriteLine(Math.Round(6.5));\n"+
-                          "            }\n" +
-                          "        }\n",
+                          "&nbsp; {\n"+
+                          "&nbsp; &nbsp; public static void Main(string[] args)\n"+
+                          "&nbsp; &nbsp; {\n"+
+                          "&nbsp; &nbsp; &nbsp; Console.WriteLine(Math.Round(6.5));\n"+
+                          "&nbsp; &nbsp; }\n" +
+                          "&nbsp; }\n",
                     Answer = "6" },
-                new QuizAndAnswer<string, string> { Quiz =  "What will be the output of the following code Snippet?\n" +
+                new QuizAndAnswer<string, string> { Quiz =  "What will be the output of the following C# code Snippet?\n" +
                           "using System;\n"+
                           "public class Program\n"+
-                          "    {\n"+
-                          "        static void arrayMethod(int[] a)\n"+
-                          "        {\n"+
-                          "            int[] b = new int[5];\n"+
-                          "            a = b;\n"+
-                          "        }\n"+
-                          "        public static void Main(string[] args)\n"+
-                          "        {\n"+
-                          "            int[] arr = new int[10];\n"+
-                          "            arrayMethod(arr);\n"+
-                          "            Console.WriteLine(arr.Length);\n"+
-                          "        }\n" +
-                          "    }\n",
+                          "&nbsp; {\n"+
+                          "&nbsp; &nbsp; static void arrayMethod(int[] a)\n"+
+                          "&nbsp; &nbsp; {\n"+
+                          "&nbsp; &nbsp; &nbsp; int[] b = new int[5];\n"+
+                          "&nbsp; &nbsp; &nbsp; a = b;\n"+
+                          "&nbsp; &nbsp; }\n"+
+                          "&nbsp; &nbsp; public static void Main(string[] args)\n"+
+                          "&nbsp; &nbsp; {\n"+
+                          "&nbsp; &nbsp; &nbsp; int[] arr = new int[10];\n"+
+                          "&nbsp; &nbsp; &nbsp; arrayMethod(arr);\n"+
+                          "&nbsp; &nbsp; &nbsp; Console.WriteLine(arr.Length);\n"+
+                          "&nbsp; &nbsp; }\n" +
+                          "&nbsp; }\n",
                     Answer = "10" },
                 new QuizAndAnswer<string, string> { Quiz = "<strong>This one is pretty hard</strong>\n"+
-                    "What will be the output of the following code? You can check the code here <a href=\"https://www.compilejava.net/\" target=\"_blank\">CompileJava</href>\n" +
+                    "What will be the output of the following Java code? Check the code here <a href=\"https://www.compilejava.net/\" target=\"_blank\">CompileJava</a>\n" +
                                                             "public class HelloWorld\n" +
                                                            "{\n" +
-                                                           "  public static void main(String[] args)\n" +
-                                                           "        {\n" +
-                                                           "            A a = new C();\n" +
-                                                           "            a.m3();\n" +
-                                                           "        }\n" +
-                                                           "    }\n" +
+                                                           "&nbsp; public static void main(String[] args)\n" +
+                                                           "&nbsp; {\n" +
+                                                           "&nbsp; &nbsp; A a = new C();\n" +
+                                                           "&nbsp; &nbsp; a.m3();\n" +
+                                                           "&nbsp; }\n" +
+                                                           "}\n" +
                                                            "\n"  +
-                                                           "    public class A\n" +
-                                                           "    {\n" +
-                                                           "        public void m1()\n" +
-                                                           "        {\n" +
-                                                           "            System.out.println(\"1\");\n"+
-                                                           "        }\n"+
-                                                           "" +
-                                                           "        public void m2()\n" +
-                                                           "        {\n" +
-                                                           "            System.out.println(\"2\");\n"+
-                                                           "        }\n"+
+                                                           "public class A\n" +
+                                                           "{\n" +
+                                                           "&nbsp; &nbsp; public void m1()\n" +
+                                                           "&nbsp; &nbsp; {\n" +
+                                                           "&nbsp; &nbsp; &nbsp; System.out.println(\"1\");\n"+
+                                                           "&nbsp; &nbsp; }\n"+
+                                                           "\n" +
+                                                           "&nbsp; &nbsp; public void m2()\n" +
+                                                           "&nbsp; &nbsp; {\n" +
+                                                           "&nbsp; &nbsp; &nbsp; System.out.println(\"2\");\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "        public void m3()\n"+
-                                                           "        {\n"+
+                                                           "&nbsp; &nbsp; public void m3()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; System.out.println(\"3\");\n"+
+                                                           "&nbsp; &nbsp; &nbsp; }\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "            System.out.println(\"3\");\n"+
-                                                           "        }\n"+
-                                                           "    }\n"+
+                                                           "public class B extends A\n"+
+                                                           "{\n"+
+                                                           "&nbsp; &nbsp; public void m1()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; this.m2();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "    public class B extends A\n"+
-                                                           "    {\n"+
-                                                           "    public void m1()\n"+
-                                                           "    {\n"+
-                                                           "        this.m2();\n"+
-                                                           "    }\n"+
+                                                           "&nbsp; &nbsp; public void m2()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; super.m3();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "    public void m2()\n"+
-                                                           "    {\n"+
-                                                           "        super.m3();\n"+
-                                                           "    }\n"+
-                                                           "\n"+
-                                                           "    public void m3()\n"+
-                                                           "    {\n"+
-                                                           "        super.m1();\n"+
-                                                           "    }\n"+
+                                                           "&nbsp; &nbsp; public void m3()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; super.m1();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "}\n"+
                                                            "\n"+
                                                            "public class C extends B\n"+
                                                            "{\n"+
-                                                           "    public void m1()\n"+
-                                                           "{\n"+
-                                                           "    super.m2();\n"+
-                                                           "}\n"+
+                                                           "&nbsp; &nbsp; public void m1()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; super.m2();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "public void m2()\n"+
-                                                           "{\n"+
-                                                           "    super.m3();\n"+
-                                                           "}\n"+
+                                                           "&nbsp; &nbsp; public void m2()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; super.m3();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "\n"+
-                                                           "public void m3()\n"+
-                                                           "{\n"+
-                                                           "    super.m1();\n"+
-                                                           "}\n"+
+                                                           "&nbsp; &nbsp; public void m3()\n"+
+                                                           "&nbsp; &nbsp; {\n"+
+                                                           "&nbsp; &nbsp; &nbsp; super.m1();\n"+
+                                                           "&nbsp; &nbsp; }\n"+
                                                            "}", Answer = "1" }
             });
 

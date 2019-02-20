@@ -43,7 +43,7 @@ namespace GameCore
                 Player = new Domain.Entities.Player
                 {
                     Name = playerName,
-                    Points = 0
+                    Score = 0
                 }
             };
 

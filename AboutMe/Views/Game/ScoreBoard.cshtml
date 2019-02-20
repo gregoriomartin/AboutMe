@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Domain.Entities.Player>
+@{
+    ViewData["Title"] = "Score Board";
+}
+
+<h1>Score Board</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Player Name
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Message
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageForGM)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

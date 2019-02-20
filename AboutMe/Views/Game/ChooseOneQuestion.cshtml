@@ -1,23 +1,31 @@
 ﻿@model GameCore.GameModels.ChooseOneViewModel
 @{
-    ViewData["Title"] = "ChooseOneQuestion";
+    ViewData["Title"] = "Choose One | Know more about me game";
+    Model.Answer = "";
 }
 
-<h1>ChooseOneQuestion</h1>
+
+@await Html.PartialAsync("_QuestionText")
 
 <div class="row">
-    <div class="col-md-12">
-        <label asp-for="Question"></label>
+    <div class="col-md-10">
+        <form asp-controller="Game" asp-action="AnswerChooseOne" method="post">
+
+            <div class="row">
+                @foreach (var title in Model.Titles)
+                {
+                    <div class="col-md-4">
+                        <h4>@title.Name</h4>
+                        <img src="@title.ImgUrl" alt="@title.Name" class="img-thumbnail">
+                        <input asp-for="Answer" type="radio" value="@title.Id" />
+                    </div>
+                }
+            </div>
+            <hr />
+            <div class="form-group">
+
+                <input type="submit" value="Next" id="btnSubmit" class="btn-primary btn" />
+            </div>
+        </form>
     </div>
-</div>
-<div class="row">
-    @foreach (var title in Model.Titles)
-    {
-        <div class="col-md-4">
-            <h5>@title.Name</h5>
-            <img src="@title.ImgUrl" alt="@title.Name" class="img-thumbnail">
-            <input type="checkbox" asp-for="@title.Id" />
-        </div>
-    };
-
 </div>

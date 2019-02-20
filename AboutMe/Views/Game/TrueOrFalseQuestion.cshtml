@@ -1,15 +1,31 @@
 ﻿@model GameCore.GameModels.BaseQuestionViewModel
 @{
-    ViewData["Title"] = "TrueOrFalseQuestion";
+    ViewData["Title"] = "True or False | Know more about me game";
 }
 
-<h1>TrueOrFalseQuestion</h1>
 
+@await Html.PartialAsync("_QuestionText")
+
+
+<hr />
 <div class="row">
-    <div class="col-md-12">
-        <label asp-for="Question"></label>
+    <div class="col-md-10">
+        <form asp-controller="Game" asp-action="AnswerCommon" method="post">
+            <div class="form-group">
+                <label>True</label>
+                <input type="radio" asp-for="Answer" value="true" />
+            </div>
+
+            <div class="form-group">
+                <label>False</label>
+                <input type="radio" asp-for="Answer" value="true" />
+            </div>
+
+            <hr />
+            <div class="form-group">
+
+                <input type="submit" value="Next" id="btnSubmit" class="btn-primary btn" />
+            </div>
+        </form>
     </div>
-</div>
-<div class="row">
-
 </div>

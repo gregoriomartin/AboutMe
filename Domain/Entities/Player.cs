@@ -6,7 +6,7 @@ namespace Domain.Entities
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public long Points { get; set; }
+        public long Score { get; set; }
         public string MessageForGM { get; set; }
     }
 }

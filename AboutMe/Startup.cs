@@ -47,6 +47,8 @@ namespace AboutMe
             services.AddDomainServices();
             services.AddGameCoreServices();
 
+            services.AddMemoryCache();
+
             services.AddTransient<IViewFinder, ViewFinder>();
         }
 
