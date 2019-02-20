@@ -1,0 +1,30 @@
+﻿@model AboutMe.Models.HateAndLoveViewModel
+@{
+    ViewData["Title"] = "Things I love and things I hate!";
+}
+
+<h2>Things I love ♥</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul>
+            @foreach (var thingILove in Model.ThingsILove)
+            {
+                <li>@thingILove</li>
+            }
+        </ul>
+    </div>
+</div>
+
+<h2>Things I hate :(</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul>
+            @foreach (var thingIHate in Model.ThingsIHate)
+            {
+                <li>@thingIHate</li>
+            }
+        </ul>
+    </div>
+</div>

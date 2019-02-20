@@ -1,0 +1,18 @@
+﻿@model AboutMe.Models.GameViewModel
+@{
+    ViewData["Title"] = "Start Game";
+}
+
+<h1>Start Game</h1>
+
+<form asp-action="Start">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group col-md-6">
+        Enter your name and click start :P
+        <input asp-for="@Model.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Start" class="btn btn-default" />
+    </div>
+</form>
+
