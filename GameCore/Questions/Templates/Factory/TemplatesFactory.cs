@@ -39,12 +39,23 @@ namespace GameCore.Questions.Templates.Factory
             if (!_templates.TryGetValue(type, out QuestionTemplate value))
             {
                 value = (QuestionTemplate)Activator.CreateInstance(type);
+
                 if (type == typeof(ChooseOneTitleTemplate))
                 {
                     if (!int.TryParse(_configuration.GetSection("GameSettings:NumberOfTitlesPerQuiz").Value, out int numberOfTitlesPerQuiz))
                         numberOfTitlesPerQuiz = 3;
                     ((ChooseOneTitleTemplate)value).SetNumberOfTitles(numberOfTitlesPerQuiz).SetTitles(_dbContext.Titles.ToList());
                 }
+                else if (type == typeof(CodingTemplate))
+                {
+                    ((CodingTemplate)value).SetQuizAndAnswers(_dbContext.Questions.ToList());
+                }
+                else if (type == typeof(TrueOrFalseTemplate))
+                {
+                    ((TrueOrFalseTemplate)value).SetQuestions(_dbContext.Questions.ToList());
+                }
+
+                _templates.Add(type, value);
             }
 
             return value;

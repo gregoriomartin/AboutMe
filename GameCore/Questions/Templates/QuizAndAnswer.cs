@@ -7,6 +7,6 @@ namespace GameCore.Questions.Templates
     public class QuizAndAnswer<TQuiz, TAnswer>
     {
         public TQuiz Quiz { get; set; }
-        public TAnswer Answer { get; set; }
+        public TAnswer CorrectAnswer { get; set; }
     }
 }

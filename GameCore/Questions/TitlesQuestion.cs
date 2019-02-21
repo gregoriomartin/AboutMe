@@ -14,7 +14,7 @@ namespace GameCore.Questions
         public TitlesQuestion(string text, List<Title> titles)
         {
             Titles = titles;
-            _quiz = new QuizAndAnswer<string, long> { Quiz = text, Answer = titles.Single(t => !t.Fake).Id };
+            _quiz = new QuizAndAnswer<string, long> { Quiz = text, CorrectAnswer = titles.Single(t => !t.Fake).Id };
         }
 
         public List<Title> Titles { get; set; }
@@ -24,7 +24,7 @@ namespace GameCore.Questions
         public override bool IsCorrect()
         {
             long id = long.Parse(Answer);
-            return _quiz.Answer == id;
+            return _quiz.CorrectAnswer == id;
         }
 
         public override string Accept(IViewFinder viewFinder)

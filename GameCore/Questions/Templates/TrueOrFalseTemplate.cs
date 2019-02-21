@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -6,12 +7,15 @@ namespace GameCore.Questions.Templates
 {
     public class TrueOrFalseTemplate : QuestionTemplate
     {
-        public static readonly IList<QuizAndAnswer<string, bool>> Questions = new ReadOnlyCollection<QuizAndAnswer<string, bool>>(new[]
+        public List<QuizAndAnswer<string, bool>> Questions { get; private set; }
+
+        public TrueOrFalseTemplate SetQuestions(List<Quiz> questions)
         {
-            new QuizAndAnswer<string, bool> { Quiz =  "Does C# supports anonymous inner classes?", Answer = false },
-            new QuizAndAnswer<string, bool> { Quiz =  "If an App has bad performance, is it advisable to call the garbage collector to make it release memory more quickly?", Answer = false },
-            new QuizAndAnswer<string, bool> { Quiz =  $"Are you ready to be the team leader of {QuestionTemplate.GameMasterName}?", Answer = true }
-        });
+            Questions = questions.Where(q => q.Type == QuestionType.TrueOrFalse)
+                .Select(q => new QuizAndAnswer<string, bool> { CorrectAnswer = bool.Parse(q.CorrectAnswer), Quiz = q.Text })
+                .ToList();
+            return this;
+        }
 
         public override Question Accept(IQuestionGenerator questionGenerator)
         {

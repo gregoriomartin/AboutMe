@@ -25,7 +25,7 @@ namespace GameCore.Questions
 
         public override bool IsCorrect()
         {
-            return bool.Parse(Answer) == _quiz.Answer;
+            return bool.Parse(Answer) == _quiz.CorrectAnswer;
         }
 
         public override BaseQuestionViewModel MakeViewModel()

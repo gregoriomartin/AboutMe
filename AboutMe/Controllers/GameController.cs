@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AboutMe.Controllers
 {
@@ -28,6 +27,12 @@ namespace AboutMe.Controllers
 
         public IActionResult BeforeStart()
         {
+            string matchGUID;
+            if ((matchGUID = HttpContext.Session.GetString("MatchGuid")) != null)
+            {
+                return Question();
+            }
+
             var vm = new GameViewModel();
             return View(vm);
         }
@@ -39,9 +44,7 @@ namespace AboutMe.Controllers
             {
                 return View("BeforeStart", vm);
             }
-
-            Match match;
-            Stage stage;
+            
             string matchGUID;
 
             HttpContext.Session.SetString("PlayerName", vm.Name);
@@ -52,32 +55,17 @@ namespace AboutMe.Controllers
                 HttpContext.Session.SetString("MatchGuid", matchGUID);
             }
 
-            if (!_memoryCache.TryGetValue(matchGUID, out ICacheEntry entry))
-            {
-                match = GetMatch();
-
-                stage = match.NextStage();
-            }
-
             return Question();
         }
 
         public IActionResult Question()
         {
-            Match match;
-            Stage stage;
-            string matchGUID = HttpContext.Session.GetString("MatchGuid");
+            Match match = GetMatch();
+            Stage stage = match.NextStage();
 
-            if (_memoryCache.TryGetValue(matchGUID, out ICacheEntry entry))
-            {
-                match = (Match)entry.Value;
-                stage = match.NextStage();
-                BeforeNextStage(stage.ViewModel);
+            BeforeNextStage(stage.ViewModel);
 
-                return View(stage.ViewName, stage.ViewModel);
-            }
-
-            return RedirectToAction("ScoreBoard");
+            return View(stage.ViewName, stage.ViewModel);
         }
 
         [HttpPost]
@@ -116,6 +104,15 @@ namespace AboutMe.Controllers
             {
                 return Question();
             }
+            var player = GetMatch().Player;
+
+            player.MessageForGM = viewModel.Answer;
+
+            _dbContext.Players.Add(player);
+
+            _dbContext.SaveChanges();
+
+            ClearCache();
 
             return RedirectToAction("ScoreBoard");
         }
@@ -123,7 +120,7 @@ namespace AboutMe.Controllers
         public IActionResult ScoreBoard()
         {
 
-            return View(_dbContext.Players.ToList());
+            return View(_dbContext.Players.OrderByDescending(p => p.Score).ToList());
 
         }
 
@@ -153,6 +150,13 @@ namespace AboutMe.Controllers
             _memoryCache.Set(guid, entry, cacheOpt);
 
             HttpContext.Session.SetString("MatchGuid", guid);
+        }
+
+        private void ClearCache()
+        {
+            _memoryCache.Remove(HttpContext.Session.GetString("MatchGuid"));
+
+            HttpContext.Session.Remove("MatchGuid");
         }
 
         private void BeforeNextStage(BaseQuestionViewModel vm)

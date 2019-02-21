@@ -14,6 +14,7 @@ namespace Domain
         public DbSet<Thing> Things { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Title> Titles { get; set; }
+        public DbSet<Quiz> Questions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

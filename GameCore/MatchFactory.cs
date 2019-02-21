@@ -4,6 +4,7 @@ using GameCore.Questions.Visitor;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameCore
 {
@@ -33,7 +34,7 @@ namespace GameCore
 
             if (!int.TryParse(configuration.GetSection("GameSettings:NumberOfQuestions").Value, out result))
                 result = 6;
-            _numberOfQuestions = 6;
+            _numberOfQuestions = result;
         }
 
         public Match BuildMatch(string playerName)
@@ -59,16 +60,18 @@ namespace GameCore
         {
             Type templateType;
 
-            Type func()
-            {
-                int random = _random.Next(_tempaltesFactory.TemplateTypes.Count);
-                return _tempaltesFactory.TemplateTypes[random];
-            }
-
+            int random;
             do
             {
-                templateType = func();
-            } while (_typeQuant.Count > 0 &&  _typeQuant[templateType] <= _maximumSameTypePerMatch);
+                random = _random.Next(_tempaltesFactory.TemplateTypes.Count);
+                templateType = _tempaltesFactory.TemplateTypes[random];
+
+            } while (_typeQuant.Count(tq => tq.Key == templateType) > 0 &&  _typeQuant[templateType] <= _maximumSameTypePerMatch);
+
+            if(!_typeQuant.TryGetValue(templateType, out int val)){
+                val = 0;
+            }
+            _typeQuant.Add(templateType, ++val);
 
             return templateType;
         }

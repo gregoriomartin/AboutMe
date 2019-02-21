@@ -22,7 +22,7 @@ namespace GameCore.Questions
 
         public override bool IsCorrect()
         {
-           return _quiz.Answer.ToLower().Equals(Answer?.ToLower().Trim());
+           return _quiz.CorrectAnswer.ToLower().Equals(Answer?.ToLower().Trim());
         }
 
         public override BaseQuestionViewModel MakeViewModel()
