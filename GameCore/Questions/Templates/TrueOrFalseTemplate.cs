@@ -12,12 +12,12 @@ namespace GameCore.Questions.Templates
         public TrueOrFalseTemplate SetQuestions(List<Quiz> questions)
         {
             Questions = questions.Where(q => q.Type == QuestionType.TrueOrFalse)
-                .Select(q => new QuizAndAnswer<string, bool> { CorrectAnswer = bool.Parse(q.CorrectAnswer), Quiz = q.Text })
+                .Select(q => new QuizAndAnswer<string, bool> { CorrectAnswer = bool.Parse(q.CorrectAnswer), Quiz = q.Text.Replace("{{GameMasterName}}", GameMasterName) })
                 .ToList();
             return this;
         }
 
-        public override Question Accept(IQuestionGenerator questionGenerator)
+        protected override Question Handle(IQuestionGenerator questionGenerator)
         {
             return questionGenerator.GenerateQuiz(this);
         }

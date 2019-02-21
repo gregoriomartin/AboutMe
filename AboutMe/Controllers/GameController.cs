@@ -30,7 +30,7 @@ namespace AboutMe.Controllers
             string matchGUID;
             if ((matchGUID = HttpContext.Session.GetString("MatchGuid")) != null)
             {
-                return Question();
+                return RedirectToAction("AnswerTheQuestion");
             }
 
             var vm = new GameViewModel();
@@ -55,15 +55,21 @@ namespace AboutMe.Controllers
                 HttpContext.Session.SetString("MatchGuid", matchGUID);
             }
 
-            return Question();
+            return RedirectToAction("AnswerTheQuestion");
         }
 
-        public IActionResult Question()
+        public IActionResult AnswerTheQuestion()
         {
             Match match = GetMatch();
             Stage stage = match.NextStage();
 
             BeforeNextStage(stage.ViewModel);
+
+            if (stage.ViewName == "Score")
+            {
+                _dbContext.Players.Add(match.Player);
+                _dbContext.SaveChanges();
+            }
 
             return View(stage.ViewName, stage.ViewModel);
         }
@@ -74,12 +80,12 @@ namespace AboutMe.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Question();
+                return RedirectToAction("AnswerTheQuestion");
             }
 
             GetMatch().Answer(viewModel.Answer);
 
-            return Question();
+            return RedirectToAction("AnswerTheQuestion");
         }
 
         [HttpPost]
@@ -88,12 +94,12 @@ namespace AboutMe.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Question();
+                return RedirectToAction("AnswerTheQuestion");
             }
 
             GetMatch().Answer(viewModel.Answer.ToString());
 
-            return Question();
+            return RedirectToAction("AnswerTheQuestion");
         }
 
         [HttpPost]
@@ -102,13 +108,15 @@ namespace AboutMe.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Question();
+                return RedirectToAction("AnswerTheQuestion");
             }
+
             var player = GetMatch().Player;
 
-            player.MessageForGM = viewModel.Answer;
+            var persistedPlayer = _dbContext.Players.SingleOrDefault(p => p.Id == player.Id);
 
-            _dbContext.Players.Add(player);
+            if (persistedPlayer != null)
+                persistedPlayer.MessageForGM = viewModel.Answer;
 
             _dbContext.SaveChanges();
 

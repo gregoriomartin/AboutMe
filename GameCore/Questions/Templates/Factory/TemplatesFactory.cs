@@ -60,11 +60,22 @@ namespace GameCore.Questions.Templates.Factory
 
             return value;
         }
+
+        public List<QuestionTemplate> GetAllTemplates()
+        {
+            List<QuestionTemplate> quizTemplates = new List<QuestionTemplate>();
+            foreach (var type in TemplateTypes)
+            {
+                quizTemplates.Add(GetTemplate(type));
+            }
+            return quizTemplates;
+        }
     }
 
     public interface ITemplatesFactory
     {
         QuestionTemplate GetTemplate(Type type);
+        List<QuestionTemplate> GetAllTemplates();
         List<Type> TemplateTypes { get; }
     }
 }

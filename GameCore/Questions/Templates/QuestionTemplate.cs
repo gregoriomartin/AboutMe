@@ -5,12 +5,21 @@ namespace GameCore.Questions.Templates
 {
     public abstract class QuestionTemplate : IVisitable
     {
+        public static string GameMasterName { get; set; }
+
         protected readonly List<int> _positionsUsed = new List<int>();
         protected readonly Random _random = new Random();
 
-        public static string GameMasterName { get; set; }
+        public int QuestionsGenerated { get; private set; } = 0;
 
-        public abstract Question Accept(IQuestionGenerator questionGenerator);
+        public Question Accept(IQuestionGenerator questionGenerator)
+        {
+            QuestionsGenerated++;
+            return Handle(questionGenerator);
+        }
+
+        protected abstract Question Handle(IQuestionGenerator questionGenerator);
+
         public abstract object GetNextQuiz();
 
         public static T GetInstance<T>() where T : QuestionTemplate, new()

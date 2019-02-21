@@ -1,4 +1,5 @@
 ﻿using GameCore.Questions;
+using GameCore.Questions.Templates;
 using GameCore.Questions.Templates.Factory;
 using GameCore.Questions.Visitor;
 using Microsoft.Extensions.Configuration;
@@ -13,10 +14,10 @@ namespace GameCore
         private readonly ITemplatesFactory _tempaltesFactory;
         private readonly IQuestionGenerator _questionGenerator;
         private readonly Random _random = new Random();
-        private readonly Dictionary<Type, int> _typeQuant;
         private readonly int _maximumSameTypePerMatch;
         private readonly int _numberOfQuestions;
         private readonly IViewFinder _viewFinder;
+        private Match _building;
 
         public MatchFactory(ITemplatesFactory templatesFactory,
             IConfiguration configuration,
@@ -24,7 +25,6 @@ namespace GameCore
             IViewFinder viewFinder)
         {
             _tempaltesFactory = templatesFactory;
-            _typeQuant = new Dictionary<Type, int>();
             _questionGenerator = questionGenerator;
             _viewFinder = viewFinder;
 
@@ -39,7 +39,7 @@ namespace GameCore
 
         public Match BuildMatch(string playerName)
         {
-            Match match = new Match(_viewFinder)
+            _building = new Match(_viewFinder)
             {
                 Player = new Domain.Entities.Player
                 {
@@ -48,32 +48,36 @@ namespace GameCore
                 }
             };
 
-            for (int i = 0; i < _numberOfQuestions; i++) {
-                var template = _tempaltesFactory.GetTemplate(RandomTemplate());
-                match.PendingQuestions.Add(template.Accept(_questionGenerator));
-            }
+            _building.PendingQuestions.AddRange(GetQuestions());
 
-            return match;
+            return _building;
         }
 
-        public Type RandomTemplate()
+        public List<Question> GetQuestions()
         {
-            Type templateType;
+            var questions = new List<Question>();
+            var questionsTemplates = _tempaltesFactory.GetAllTemplates();
+            for (int i = 0; i < _numberOfQuestions; i++)
+            {
+                _building.PendingQuestions.Add(NextQuestion(questionsTemplates));
+            }
+            return questions;
+        }
+
+        public Question NextQuestion(List<QuestionTemplate> templates)
+        {
+            Question question;
+            QuestionTemplate questionTemplate;
 
             int random;
-            do
-            {
-                random = _random.Next(_tempaltesFactory.TemplateTypes.Count);
-                templateType = _tempaltesFactory.TemplateTypes[random];
+            do {
+                random = _random.Next(templates.Count);
+                questionTemplate = templates[random];
+            } while (questionTemplate.QuestionsGenerated == _maximumSameTypePerMatch);
 
-            } while (_typeQuant.Count(tq => tq.Key == templateType) > 0 &&  _typeQuant[templateType] <= _maximumSameTypePerMatch);
+            question = questionTemplate.Accept(_questionGenerator);
 
-            if(!_typeQuant.TryGetValue(templateType, out int val)){
-                val = 0;
-            }
-            _typeQuant.Add(templateType, ++val);
-
-            return templateType;
+            return question;
         }
     }
 

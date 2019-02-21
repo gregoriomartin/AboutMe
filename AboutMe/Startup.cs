@@ -31,7 +31,10 @@ namespace AboutMe
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDistributedMemoryCache();
+            services.AddDistributedMemoryCache(option =>
+            {
+                option.ExpirationScanFrequency = TimeSpan.FromMinutes(60);
+            });
 
             services.AddSession(options =>
             {

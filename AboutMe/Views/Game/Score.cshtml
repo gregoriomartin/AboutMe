@@ -5,7 +5,7 @@
 
 
 <h3>
-    Your score is <span>@Model.Score</span>!
+    Your score is <span class="score">@Model.Score</span>!
     <br />
 </h3>
 
@@ -15,12 +15,12 @@
     <div class="col-md-10">
         <form asp-controller="Game" asp-action="Finish" method="post">
             <div class="form-group">
-                <input type="text" asp-for="Answer" class="form-control animated infinite tada delay-1s" />
+                <textarea asp-for="Answer" class="form-control" ></textarea>
             </div>
             <hr />
 
             <div class="form-group">
-                <input type="submit" value="Save the message!" id="btnSubmit" class="btn-primary btn" />
+                <input type="submit" value="Save my score!" id="btnSubmit" class="btn-primary btn" />
             </div>
         </form>
     </div>

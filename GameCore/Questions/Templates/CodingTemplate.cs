@@ -8,11 +8,11 @@ namespace GameCore.Questions.Templates
     {
         public List<QuizAndAnswer<string, string>> QuizAndAnswers { get; private set; }
 
-        public override Question Accept(IQuestionGenerator questionGenerator)
+        protected override Question Handle(IQuestionGenerator questionGenerator)
         {
             return questionGenerator.GenerateQuiz(this);
         }
-        
+
         public CodingTemplate SetQuizAndAnswers(List<Quiz> quiz)
         {
             QuizAndAnswers = quiz.Where(q => q.Type == QuestionType.Common)
